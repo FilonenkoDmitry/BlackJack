@@ -11,7 +11,7 @@ public class DeckCreatorTests {
   @Test
   public void ReadFromFile_Positive() throws IOException {
     ClassLoader classLoader = getClass().getClassLoader();
-    InputStream s = classLoader.getResourceAsStream("DeckFile.txt");
+    InputStream s = classLoader.getResourceAsStream("testResources/DeckFile.txt");
 
     Iterator<Card> deck = DeckCreator.fromStream(s);
 
