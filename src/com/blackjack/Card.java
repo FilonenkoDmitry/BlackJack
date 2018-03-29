@@ -79,4 +79,22 @@ public class Card {
   public int getValue() {
     return value;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Card card = (Card) o;
+
+    if (!suite.equals(card.suite)) return false;
+    return rank.equals(card.rank);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = suite.hashCode();
+    result = 31 * result + rank.hashCode();
+    return result;
+  }
 }

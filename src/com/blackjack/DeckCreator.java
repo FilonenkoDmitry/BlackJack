@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,12 @@ public class DeckCreator {
                         .map(card -> Card.createCard(card.trim()))
                         .collect(Collectors.toList()));
     }
+
+    HashSet<Card> testUniqueness = new HashSet<>(result);
+
+    if (testUniqueness.size() < result.size())
+      throw new IllegalArgumentException("Input contains duplicated cards");
+
     return result;
   }
 }
