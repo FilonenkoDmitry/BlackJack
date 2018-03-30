@@ -1,5 +1,5 @@
 import com.blackjack.Card;
-import com.blackjack.DeckCreator;
+import com.blackjack.DeckReader;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.stream.Collectors;
 
-public class DeckCreatorTests {
+public class DeckReaderTests {
   @Test
   public void FromStream_ReadFromFile_AllCardsAreRead() throws IOException {
     //given
@@ -20,7 +20,7 @@ public class DeckCreatorTests {
     InputStream textStream = classLoader.getResourceAsStream("testResources/DeckFile.txt");
 
     //when
-    Iterator<Card> deck = DeckCreator.fromStream(textStream);
+    Iterator<Card> deck = DeckReader.fromStream(textStream);
 
     StringBuilder builder = new StringBuilder();
 
@@ -39,7 +39,7 @@ public class DeckCreatorTests {
     InputStream stream = new ByteArrayInputStream(cardsWithDuplications.getBytes(StandardCharsets.UTF_8));
 
     //when .. then
-    DeckCreator.fromStream(stream);
+    DeckReader.fromStream(stream);
   }
 
   @Test
@@ -50,7 +50,7 @@ public class DeckCreatorTests {
     InputStream stream = new ByteArrayInputStream(inputCards.getBytes(StandardCharsets.UTF_8));
 
     //when
-    Iterator<Card> deck = DeckCreator.shuffledFromStream(stream);
+    Iterator<Card> deck = DeckReader.shuffledFromStream(stream);
 
     //then
     //check if every cards from result deck can be found in input...
@@ -71,7 +71,7 @@ public class DeckCreatorTests {
     InputStream stream = new ByteArrayInputStream(inputCards.getBytes(StandardCharsets.UTF_8));
 
     //when
-    Iterator<Card> deck = DeckCreator.shuffledFromStream(stream);
+    Iterator<Card> deck = DeckReader.shuffledFromStream(stream);
 
     //then
     StringBuilder builder = new StringBuilder();

@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.stream.Collectors;
 
-public class DeckCreator {
+public class DeckReader {
   public static @NotNull Iterator<Card> fromStream(@NotNull InputStream inputStream) throws IOException {
     return readCardsFromStream(inputStream).iterator();
   }
