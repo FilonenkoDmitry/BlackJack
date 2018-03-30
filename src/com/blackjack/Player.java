@@ -3,7 +3,6 @@ package com.blackjack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Player {
   private ArrayList<Card> cards = new ArrayList<>();
@@ -13,9 +12,10 @@ public class Player {
     cards.add(card2);
   }
 
-  public void play(@NotNull Iterator<Card> deck, int minScore) {
-    while (deck.hasNext() && getScore() < minScore)
-      cards.add(deck.next());
+  public void play(@NotNull ICardsDeck deck, int minScore) throws GameException {
+    while (getScore() < minScore) {
+      cards.add(deck.drawACard());
+    }
   }
 
   public int getScore() {
