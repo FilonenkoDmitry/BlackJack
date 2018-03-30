@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class Player {
+public class Player implements ICompetitor {
   private ArrayList<Card> cards = new ArrayList<>();
 
   public Player(@NotNull Card card1, @NotNull Card card2) {
@@ -12,8 +12,8 @@ public class Player {
     cards.add(card2);
   }
 
-  public void play(@NotNull ICardsDeck deck, int minScore) throws GameException {
-    while (getScore() < minScore) {
+  public void play(@NotNull ICardsDeck deck, IPlayerStrategy strategy) throws GameException {
+    while (strategy.needMore(getScore())) {
       cards.add(deck.drawACard());
     }
   }
