@@ -3,6 +3,7 @@ package com.blackjack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Player implements IPlayer {
@@ -13,9 +14,9 @@ public class Player implements IPlayer {
     cards.add(card2);
   }
 
-  public void play(@NotNull ICardsDeck deck, IPlayerStrategy strategy) throws GameException {
+  public void play(final @NotNull ICardsDistributor cardsDistributor, final @NotNull IPlayerStrategy strategy) throws GameException {
     while (strategy.needMore(getScore())) {
-      cards.add(deck.drawACard());
+      cards.add(cardsDistributor.drawACard());
     }
   }
 
@@ -25,6 +26,6 @@ public class Player implements IPlayer {
 
   @Override
   public List<ICard> getCards() {
-    return cards;
+    return Collections.unmodifiableList(cards);
   }
 }

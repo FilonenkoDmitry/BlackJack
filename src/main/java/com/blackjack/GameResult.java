@@ -2,10 +2,10 @@ package com.blackjack;
 
 public class GameResult {
   private PlayerType winner;
-  private Player dealer;
-  private Player sam;
+  private IPlayer dealer;
+  private IPlayer sam;
 
-  public GameResult(PlayerType winner, Player dealer, Player sam) {
+  public GameResult(PlayerType winner, IPlayer dealer, IPlayer sam) {
     this.winner = winner;
     this.dealer = dealer;
     this.sam = sam;
@@ -15,11 +15,11 @@ public class GameResult {
     return winner;
   }
 
-  public Player getDealer() {
+  public IPlayer getDealer() {
     return dealer;
   }
 
-  public Player getSam() {
+  public IPlayer getSam() {
     return sam;
   }
 }

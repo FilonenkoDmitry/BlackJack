@@ -7,32 +7,30 @@ import java.util.Optional;
 public class Game {
   private final int blackJackScore = 21;
 
-  private @NotNull ICardsDeck deck;
+  private @NotNull
+  ICardsDistributor cardsDistributor;
 
-  public Game(@NotNull ICardsDeck deck) {
-    this.deck = deck;
+  public Game(@NotNull ICardsDistributor cardsDistributor) {
+    this.cardsDistributor = cardsDistributor;
   }
 
   public GameResult play() throws Exception {
-    ICard card1 = deck.drawACard();
-    ICard card2 = deck.drawACard();
-    ICard card3 = deck.drawACard();
-    ICard card4 = deck.drawACard();
-    Player sam = new Player(card1, card3);
-    Player dealer = new Player(card2, card4);
+    IPlayer[] players = cardsDistributor.distributeCards(2);
+    IPlayer sam = players[0];
+    IPlayer dealer = players[1];
 
     Optional<PlayerType> winner = findWinnerAfterFirstDraw(dealer, sam);
     if (winner.isPresent())
       return new GameResult(winner.get(), dealer, sam);
 
-    sam.play(deck, new SamStrategy());
+    sam.play(cardsDistributor, new SamStrategy());
 
     if (sam.getScore() > blackJackScore)
       return new GameResult(PlayerType.DEALER, dealer, sam);
     if (sam.getScore() == blackJackScore)
       return new GameResult(PlayerType.SAM, dealer, sam);
 
-    dealer.play(deck, new DealerStrategy(sam));
+    dealer.play(cardsDistributor, new DealerStrategy(sam));
 
     if (dealer.getScore() > blackJackScore)
       return new GameResult(PlayerType.SAM, dealer, sam);
@@ -40,7 +38,7 @@ public class Game {
     return new GameResult(dealer.getScore() > sam.getScore() ? PlayerType.DEALER : PlayerType.SAM, dealer, sam);
   }
 
-  private Optional<PlayerType> findWinnerAfterFirstDraw(Player dealer, Player sam) {
+  private Optional<PlayerType> findWinnerAfterFirstDraw(IPlayer dealer, IPlayer sam) {
     if (sam.getScore() == blackJackScore)
       return Optional.of(PlayerType.SAM);
     if (dealer.getScore() == blackJackScore)

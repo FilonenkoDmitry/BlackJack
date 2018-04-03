@@ -1,6 +1,6 @@
 import com.blackjack.GameException;
 import com.blackjack.ICard;
-import com.blackjack.ICardsDeck;
+import com.blackjack.ICardsDistributor;
 import com.blackjack.IPlayerStrategy;
 import com.blackjack.Player;
 import org.junit.Assert;
@@ -62,7 +62,7 @@ public class PlayerTests {
                                      .thenReturn(true)
                                      .thenReturn(false);
 
-    final ICardsDeck deck = mock(ICardsDeck.class);
+    final ICardsDistributor deck = mock(ICardsDistributor.class);
     when(deck.drawACard()).thenReturn(card3)
                           .thenReturn(card4);
 
@@ -99,7 +99,7 @@ public class PlayerTests {
                                      .thenReturn(true)
                                      .thenReturn(false);
 
-    final ICardsDeck deck = mock(ICardsDeck.class);
+    final ICardsDistributor deck = mock(ICardsDistributor.class);
     when(deck.drawACard()).thenReturn(card3)
                           .thenReturn(card4)
                           .thenReturn(joker);
