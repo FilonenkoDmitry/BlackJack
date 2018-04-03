@@ -14,10 +14,10 @@ public class Game {
   }
 
   public GameResult play() throws Exception {
-    Card card1 = deck.drawACard();
-    Card card2 = deck.drawACard();
-    Card card3 = deck.drawACard();
-    Card card4 = deck.drawACard();
+    ICard card1 = deck.drawACard();
+    ICard card2 = deck.drawACard();
+    ICard card3 = deck.drawACard();
+    ICard card4 = deck.drawACard();
     Player sam = new Player(card1, card3);
     Player dealer = new Player(card2, card4);
 

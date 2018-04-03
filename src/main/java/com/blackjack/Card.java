@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 
-public class Card {
+public class Card implements ICard {
   private static final HashSet<String> suites;
   private static final HashSet<String> ranks;
   static {

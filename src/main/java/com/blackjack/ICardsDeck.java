@@ -1,5 +1,5 @@
 package com.blackjack;
 
 public interface ICardsDeck {
-  Card drawACard() throws GameException;
+  ICard drawACard() throws GameException;
 }
