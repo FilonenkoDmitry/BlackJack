@@ -15,12 +15,8 @@ import java.util.stream.Collectors;
 public class DeckReaderTests {
   @Test
   public void FromStream_ReadFromFile_AllCardsAreRead() throws IOException {
-    //given
-    ClassLoader classLoader = getClass().getClassLoader();
-    InputStream textStream = classLoader.getResourceAsStream("testResources/DeckFile.txt");
-
     //when
-    Iterator<Card> deck = DeckReader.fromStream(textStream);
+    Iterator<Card> deck = DeckReader.fromStream(string2Stream("CA, D4, H7, SJ,S5, S9, D10"));
 
     StringBuilder builder = new StringBuilder();
 
@@ -36,7 +32,7 @@ public class DeckReaderTests {
   public void FromStream_InputContainsDuplications_Throws() throws IOException {
     //given
     String cardsWithDuplications = "S3, D8, C6, H10, D8, H4";
-    InputStream stream = new ByteArrayInputStream(cardsWithDuplications.getBytes(StandardCharsets.UTF_8));
+    InputStream stream = string2Stream(cardsWithDuplications);
 
     //when .. then
     DeckReader.fromStream(stream);
@@ -47,7 +43,7 @@ public class DeckReaderTests {
     //given
     String inputCards = "CA, D4, H7, SJ, S5, S9, D10";
     HashSet<String> inputCardsSet = new HashSet<>(Arrays.stream(inputCards.split(",")).map(String::trim).collect(Collectors.toSet()));
-    InputStream stream = new ByteArrayInputStream(inputCards.getBytes(StandardCharsets.UTF_8));
+    InputStream stream = string2Stream(inputCards);
 
     //when
     Iterator<Card> deck = DeckReader.shuffledFromStream(stream);
@@ -67,8 +63,7 @@ public class DeckReaderTests {
   @Test
   public void ShuffledFromStream_CardsInDeckAreOrderedDifferently() throws IOException {
     //given
-    String inputCards = "CA, D4, H7, SJ, S5, S9, D10";
-    InputStream stream = new ByteArrayInputStream(inputCards.getBytes(StandardCharsets.UTF_8));
+    InputStream stream = string2Stream("CA, D4, H7, SJ, S5, S9, D10");
 
     //when
     Iterator<Card> deck = DeckReader.shuffledFromStream(stream);
@@ -82,5 +77,9 @@ public class DeckReaderTests {
 
     //then
     Assert.assertNotEquals("CA D4 H7 SJ S5 S9 D10 ", builder.toString());
+  }
+
+  private static InputStream string2Stream(final String str) {
+    return new ByteArrayInputStream(str.getBytes(StandardCharsets.UTF_8));
   }
 }
