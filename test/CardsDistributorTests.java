@@ -15,8 +15,8 @@ public class CardsDistributorTests {
   @Test
   public void DistributeCards_PlayersGetCardsAlternately() throws GameException {
     //given
-    ICard[] cards = new ICard[6];
-    for (int i = 0; i < 6; i++)
+    ICard[] cards = new ICard[4];
+    for (int i = 0; i < 4; i++)
       cards[i] = mock(ICard.class);
 
     Iterator<ICard> cardsIterator = (Iterator<ICard>)mock(Iterator.class);
@@ -24,18 +24,15 @@ public class CardsDistributorTests {
     when(cardsIterator.next()).thenReturn(cards[0])
                               .thenReturn(cards[1])
                               .thenReturn(cards[2])
-                              .thenReturn(cards[3])
-                              .thenReturn(cards[4])
-                              .thenReturn(cards[5]);
+                              .thenReturn(cards[3]);
     CardsDistributor distributor = new CardsDistributor(cardsIterator);
 
     //when
-    IPlayer[] players = distributor.distributeCards(3);
+    IPlayer[] players = distributor.distributeCards();
 
     //then
-    Assert.assertArrayEquals(new ICard[] {cards[0], cards[3]}, players[0].getCards().toArray());
-    Assert.assertArrayEquals(new ICard[] {cards[1], cards[4]}, players[1].getCards().toArray());
-    Assert.assertArrayEquals(new ICard[] {cards[2], cards[5]}, players[2].getCards().toArray());
+    Assert.assertArrayEquals(new ICard[] {cards[0], cards[2]}, players[0].getCards().toArray());
+    Assert.assertArrayEquals(new ICard[] {cards[1], cards[3]}, players[1].getCards().toArray());
   }
 
   @Test

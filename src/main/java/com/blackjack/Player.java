@@ -8,16 +8,25 @@ import java.util.List;
 
 public class Player implements IPlayer {
   private ArrayList<ICard> cards = new ArrayList<>();
+  private String name;
+  private IPlayerStrategy strategy;
 
-  public Player(@NotNull ICard card1, @NotNull ICard card2) {
+  public Player(final @NotNull String name, final @NotNull ICard card1, final @NotNull ICard card2, final @NotNull IPlayerStrategy strategy) {
+    this.name = name;
+    this.strategy = strategy;
     cards.add(card1);
     cards.add(card2);
   }
 
-  public void play(final @NotNull ICardsDistributor cardsDistributor, final @NotNull IPlayerStrategy strategy) throws GameException {
+  public void play(final @NotNull ICardsDistributor cardsDistributor) throws GameException {
     while (strategy.needMore(getScore())) {
       cards.add(cardsDistributor.drawACard());
     }
+  }
+
+  @Override
+  public String getName() {
+    return name;
   }
 
   public int getScore() {

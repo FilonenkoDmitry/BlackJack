@@ -15,7 +15,7 @@ public class Game {
   }
 
   public GameResult play() throws Exception {
-    IPlayer[] players = cardsDistributor.distributeCards(2);
+    IPlayer[] players = cardsDistributor.distributeCards();
     IPlayer sam = players[0];
     IPlayer dealer = players[1];
 
@@ -23,14 +23,14 @@ public class Game {
     if (winner.isPresent())
       return new GameResult(winner.get(), dealer, sam);
 
-    sam.play(cardsDistributor, new SamStrategy());
+    sam.play(cardsDistributor);
 
     if (sam.getScore() > blackJackScore)
       return new GameResult(PlayerType.DEALER, dealer, sam);
     if (sam.getScore() == blackJackScore)
       return new GameResult(PlayerType.SAM, dealer, sam);
 
-    dealer.play(cardsDistributor, new DealerStrategy(sam));
+    dealer.play(cardsDistributor);
 
     if (dealer.getScore() > blackJackScore)
       return new GameResult(PlayerType.SAM, dealer, sam);

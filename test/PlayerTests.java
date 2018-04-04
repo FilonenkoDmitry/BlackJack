@@ -18,7 +18,7 @@ public class PlayerTests {
     final ICard card2 = mock(ICard.class);
 
     //when
-    Player player = new Player(card1, card2);
+    Player player = new Player("Test", card1, card2, mock(IPlayerStrategy.class));
 
     //then
     Assert.assertArrayEquals(new ICard[] {card1, card2}, player.getCards().toArray());
@@ -34,7 +34,7 @@ public class PlayerTests {
     when(card2.getValue()).thenReturn(5);
 
     //when
-    Player player = new Player(card1, card2);
+    Player player = new Player("Test", card1, card2, mock(IPlayerStrategy.class));
 
     //then
     Assert.assertEquals(8 + 5, player.getScore());
@@ -55,19 +55,21 @@ public class PlayerTests {
     final ICard card4 = mock(ICard.class);
     when(card4.getValue()).thenReturn(4);
 
-    Player player = new Player(card1, card2);
+    final IPlayerStrategy stubStrategy = mock(IPlayerStrategy.class);
 
-    final IPlayerStrategy strategy = mock(IPlayerStrategy.class);
-    when(strategy.needMore(anyInt())).thenReturn(true)
-                                     .thenReturn(true)
-                                     .thenReturn(false);
+    when(stubStrategy.needMore(anyInt())).thenReturn(true)
+                                         .thenReturn(true)
+                                         .thenReturn(false);
 
-    final ICardsDistributor deck = mock(ICardsDistributor.class);
-    when(deck.drawACard()).thenReturn(card3)
+    Player player = new Player("Danny Ocean", card1, card2, stubStrategy);
+
+
+    final ICardsDistributor stubCardsDistributor = mock(ICardsDistributor.class);
+    when(stubCardsDistributor.drawACard()).thenReturn(card3)
                           .thenReturn(card4);
 
     //when
-    player.play(deck, strategy);
+    player.play(stubCardsDistributor);
 
     //then
     Assert.assertArrayEquals(new ICard[] {card1, card2, card3, card4}, player.getCards().toArray());
@@ -92,20 +94,20 @@ public class PlayerTests {
     final ICard joker = mock(ICard.class);
     when(joker.getValue()).thenReturn(10);
 
-    Player player = new Player(card1, card2);
+    final IPlayerStrategy stubStrategy = mock(IPlayerStrategy.class);
+    when(stubStrategy.needMore(anyInt())).thenReturn(true)
+            .thenReturn(true)
+            .thenReturn(false);
 
-    final IPlayerStrategy strategy = mock(IPlayerStrategy.class);
-    when(strategy.needMore(anyInt())).thenReturn(true)
-                                     .thenReturn(true)
-                                     .thenReturn(false);
+    Player player = new Player("Rusty Ryan", card1, card2, stubStrategy);
 
-    final ICardsDistributor deck = mock(ICardsDistributor.class);
-    when(deck.drawACard()).thenReturn(card3)
+    final ICardsDistributor stubCardsDistributor = mock(ICardsDistributor.class);
+    when(stubCardsDistributor.drawACard()).thenReturn(card3)
                           .thenReturn(card4)
                           .thenReturn(joker);
 
     //when
-    player.play(deck, strategy);
+    player.play(stubCardsDistributor);
 
     //then
     Assert.assertFalse(player.getCards().contains(joker));

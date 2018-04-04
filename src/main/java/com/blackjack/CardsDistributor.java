@@ -12,17 +12,19 @@ public class CardsDistributor implements ICardsDistributor {
   }
 
   @Override
-  public IPlayer[] distributeCards(int playersNumber) throws GameException {
-    ICard[][] cardSets = new ICard[playersNumber][2];
+  public IPlayer[] distributeCards() throws GameException {
+    final int playersNumber = 2;
+    final int initialCardsNumber = 2;
 
-    for (int cardsPerPlayer = 0; cardsPerPlayer < 2; cardsPerPlayer++)
+    ICard[][] cardSets = new ICard[playersNumber][initialCardsNumber];
+
+    for (int cardsPerPlayer = 0; cardsPerPlayer < initialCardsNumber; cardsPerPlayer++)
       for (int playerNo = 0; playerNo < playersNumber; playerNo++)
         cardSets[playerNo][cardsPerPlayer] = drawACard();
 
     IPlayer[] players = new Player[playersNumber];
-    for (int playerNo = 0; playerNo < playersNumber; playerNo++) {
-      players[playerNo] = new Player(cardSets[playerNo][0], cardSets[playerNo][1]);
-    }
+    players[0] = new Player("sam", cardSets[0][0], cardSets[0][1], new SamStrategy());
+    players[1] = new Player("dealer", cardSets[1][0], cardSets[1][1], new DealerStrategy(players[0]));
 
     return players;
   }
