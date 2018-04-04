@@ -1,5 +1,5 @@
-import com.blackjack.Card;
 import com.blackjack.DeckReader;
+import com.blackjack.ICard;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,7 +16,7 @@ public class DeckReaderTests {
   @Test
   public void FromStream_ReadFromFile_AllCardsAreRead() throws IOException {
     //when
-    Iterator<Card> deck = DeckReader.fromStream(string2Stream("CA, D4, H7, SJ,S5, S9, D10"));
+    Iterator<ICard> deck = DeckReader.fromStream(string2Stream("CA, D4, H7, SJ,S5, S9, D10"));
 
     StringBuilder builder = new StringBuilder();
 
@@ -46,7 +46,7 @@ public class DeckReaderTests {
     InputStream stream = string2Stream(inputCards);
 
     //when
-    Iterator<Card> deck = DeckReader.shuffledFromStream(stream);
+    Iterator<ICard> deck = DeckReader.shuffledFromStream(stream);
 
     //then
     //check if every cards from result deck can be found in input...
@@ -66,7 +66,7 @@ public class DeckReaderTests {
     InputStream stream = string2Stream("CA, D4, H7, SJ, S5, S9, D10");
 
     //when
-    Iterator<Card> deck = DeckReader.shuffledFromStream(stream);
+    Iterator<ICard> deck = DeckReader.shuffledFromStream(stream);
 
     //then
     StringBuilder builder = new StringBuilder();

@@ -15,19 +15,19 @@ import java.util.Iterator;
 import java.util.stream.Collectors;
 
 public class DeckReader {
-  public static @NotNull Iterator<Card> fromStream(@NotNull InputStream inputStream) throws IOException {
+  public static @NotNull Iterator<ICard> fromStream(@NotNull InputStream inputStream) throws IOException {
     return readCardsFromStream(inputStream).iterator();
   }
 
-  public static @NotNull Iterator<Card> shuffledFromStream(@NotNull InputStream inputStream) throws IOException {
-    ArrayList<Card> cardsList = readCardsFromStream(inputStream);
+  public static @NotNull Iterator<ICard> shuffledFromStream(@NotNull InputStream inputStream) throws IOException {
+    ArrayList<ICard> cardsList = readCardsFromStream(inputStream);
     Collections.shuffle(cardsList);
     return cardsList.iterator();
   }
 
   @NotNull
-  private static ArrayList<Card> readCardsFromStream(@NotNull InputStream inputStream) throws IOException {
-    ArrayList<Card> result = new ArrayList<>();
+  private static ArrayList<ICard> readCardsFromStream(@NotNull InputStream inputStream) throws IOException {
+    ArrayList<ICard> result = new ArrayList<>();
     InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
     BufferedReader reader = new BufferedReader(streamReader);
     for (String line; (line = reader.readLine()) != null;) {
@@ -36,7 +36,7 @@ public class DeckReader {
                         .collect(Collectors.toList()));
     }
 
-    HashSet<Card> testUniqueness = new HashSet<>(result);
+    HashSet<ICard> testUniqueness = new HashSet<>(result);
 
     if (testUniqueness.size() < result.size())
       throw new IllegalArgumentException("Input contains duplicated cards");
