@@ -10,6 +10,16 @@ public class DealerStrategy implements IPlayerStrategy {
   }
 
   @Override
+  public boolean hasPriorityWithBlackjack() {
+    return false;
+  }
+
+  @Override
+  public boolean canSurviveWithBust() {
+    return true;
+  }
+
+  @Override
   public boolean needMore(int currentHandScore) {
     return currentHandScore <= sam.getScore();
   }

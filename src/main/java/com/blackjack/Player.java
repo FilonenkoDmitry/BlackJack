@@ -25,6 +25,16 @@ public class Player implements IPlayer {
   }
 
   @Override
+  public boolean hasPriorityWithBlackjack() {
+    return strategy.hasPriorityWithBlackjack();
+  }
+
+  @Override
+  public boolean canSurviveWithBust() {
+    return strategy.canSurviveWithBust();
+  }
+
+  @Override
   public String getName() {
     return name;
   }
