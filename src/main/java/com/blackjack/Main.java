@@ -40,7 +40,7 @@ public class Main {
         state.play();
         Optional<IPlayer> winner = state.tryDefineAWinner();
         if (winner.isPresent()) {
-          System.out.print(String.format("%s\nsam: %s\ndealer: %s",
+          System.out.print(String.format("%s\n%s\n%s",
                   winner.get().getName(),
                   getPlayerCards(players[0]),
                   getPlayerCards(players[1])));
@@ -54,6 +54,9 @@ public class Main {
   }
 
   private static String getPlayerCards(final IPlayer player) {
-    return String.join(", ", player.getCards().stream().map(card -> card.toString()).collect(Collectors.toList()));
+    return new StringBuilder(player.getName())
+                .append(": ")
+                .append(String.join(", ", player.getCards().stream().map(card -> card.toString()).collect(Collectors.toList())))
+                .toString();
   }
 }
