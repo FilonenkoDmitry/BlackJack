@@ -1,8 +1,10 @@
 package com.blackjack;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Optional;
@@ -12,23 +14,7 @@ public class Main {
 
   public static void main(String[] args) {
     try {
-      Iterator<ICard> deckIterator;
-
-      if (args.length > 0) {
-        try {
-          File f = new File(args[0]);
-          InputStream fileStream = new FileInputStream(f);
-          deckIterator = DeckReader.fromStream(fileStream);
-        } catch (FileNotFoundException e) {
-          System.out.println(String.format("File %s can't be found", args[0]));
-          return;
-        }
-      } else {
-        ClassLoader classLoader = Main.class.getClassLoader();
-        InputStream fileStream = classLoader.getResourceAsStream("StandardDeck.txt");
-        deckIterator = DeckReader.shuffledFromStream(fileStream);
-      }
-
+      Iterator<ICard> deckIterator = setUpCardsSource(args);
       ICardsDistributor distributor = new CardsDistributor(deckIterator);
       IPlayer[] players = distributor.distributeCards();
       IGameState[] gameStates = new IGameState[] {
@@ -49,7 +35,20 @@ public class Main {
       }
     }
     catch (Exception e) {
-      e.printStackTrace();
+      System.out.print("Error: " + e.getMessage());
+    }
+  }
+
+  @NotNull
+  private static Iterator<ICard> setUpCardsSource(String[] args) throws IOException {
+    if (args.length > 0) {
+        File f = new File(args[0]);
+        InputStream fileStream = new FileInputStream(f);
+        return DeckReader.fromStream(fileStream);
+    } else {
+      ClassLoader classLoader = Main.class.getClassLoader();
+      InputStream fileStream = classLoader.getResourceAsStream("StandardDeck.txt");
+      return DeckReader.shuffledFromStream(fileStream);
     }
   }
 
