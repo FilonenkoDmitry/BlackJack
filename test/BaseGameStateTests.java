@@ -12,13 +12,13 @@ public abstract class BaseGameStateTests {
     //given
     IPlayer sam = mock(IPlayer.class);
     when(sam.getName()).thenReturn("Sam");
-    when(sam.canSurviveWithBust()).thenReturn(false);
+    when(sam.canSurviveAfterBust()).thenReturn(false);
     when(sam.hasPriorityWithBlackjack()).thenReturn(true);
     when(sam.getScore()).thenReturn(samScore);
 
     IPlayer dealer = mock(IPlayer.class);
     when(dealer.getName()).thenReturn("Dealer");
-    when(dealer.canSurviveWithBust()).thenReturn(true);
+    when(dealer.canSurviveAfterBust()).thenReturn(true);
     when(dealer.hasPriorityWithBlackjack()).thenReturn(false);
     when(dealer.getScore()).thenReturn(dealerScore);
 

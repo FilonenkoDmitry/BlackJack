@@ -26,7 +26,7 @@ public class CardsDistributedState implements IGameState {
 
     if (player1Score > blackjackScore) {
       if (player2Score > blackjackScore)
-        return Optional.of(player1.canSurviveWithBust() ? player1 : player2);
+        return Optional.of(player1.canSurviveAfterBust() ? player1 : player2);
       else
         return Optional.of(player2);
     }

@@ -9,5 +9,5 @@ public interface IPlayer extends ICompetitor {
     List<ICard> getCards();
     void play(final @NotNull ICardsDistributor cardsDistributor) throws GameException;
     boolean hasPriorityWithBlackjack();
-    boolean canSurviveWithBust();
+    boolean canSurviveAfterBust();
 }

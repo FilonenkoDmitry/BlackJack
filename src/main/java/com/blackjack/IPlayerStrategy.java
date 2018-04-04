@@ -2,6 +2,6 @@ package com.blackjack;
 
 public interface IPlayerStrategy {
   boolean hasPriorityWithBlackjack();
-  boolean canSurviveWithBust();
+  boolean canSurviveAfterBust();
   boolean needMore(int currentHandScore);
 }

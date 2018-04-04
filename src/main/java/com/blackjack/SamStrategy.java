@@ -7,7 +7,7 @@ public class SamStrategy implements IPlayerStrategy {
   }
 
   @Override
-  public boolean canSurviveWithBust() {
+  public boolean canSurviveAfterBust() {
     return false;
   }
 

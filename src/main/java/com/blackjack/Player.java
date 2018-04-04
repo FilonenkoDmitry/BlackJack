@@ -30,8 +30,8 @@ public class Player implements IPlayer {
   }
 
   @Override
-  public boolean canSurviveWithBust() {
-    return strategy.canSurviveWithBust();
+  public boolean canSurviveAfterBust() {
+    return strategy.canSurviveAfterBust();
   }
 
   @Override
